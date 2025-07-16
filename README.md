@@ -1,56 +1,97 @@
+# 🎮 Gesture-Based Media Controller (FreeRTOS-Based)
 
-# ✋ Gesture-Based Media Controller using Arduino
+An Arduino-based media controller that recognizes hand gestures using ultrasonic sensors and executes actions like Play/Pause and Next/Previous. Enhanced with **FreeRTOS** for modular task-based execution, this project showcases real-time scheduling and sensor-action separation.
 
-This project demonstrates a media controller that uses **ultrasonic sensors** to recognize hand gestures and control media playback functions like Play/Pause, Next, and Previous.
+---
 
-## 🎯 Features
-- Gesture-based control using 2 ultrasonic sensors
-- Arduino UNO-based logic
-- Communicates with PC to trigger media controls
-- Simple and easy to build
+## 📌 Key Features
 
-## 📷 Demo
-> Include images in the `images/` folder and a video in `videos/`
+- 🖐️ IR or ultrasonic gesture detection
+- ⚙️ RTOS-based task separation (GestureTask + ActionTask)
+- 💡 Debug LED feedback
+- 🔁 Uses FreeRTOS queues for task communication
+- 📉 Lightweight and real-time responsive
 
-### Gesture Actions
-| Gesture        | Action       |
-|----------------|--------------|
-| Swipe Right    | Next Track   |
-| Swipe Left     | Previous     |
-| Hold Both      | Play/Pause   |
+---
 
-## 🧠 Code Overview
-See `gesture_controller.ino` for full code. Sample output via `Serial.println()`:
+## 🧠 Architecture Overview
 
 ```
-NEXT
-PREV
-PLAY_PAUSE
+[Ultrasonic Sensor 1/2]
+       |
+   [GestureTask]
+       |
+    [Queue]
+       |
+   [ActionTask] —> Media action + LED
 ```
 
-Connect this to Python/PyAutoGUI or AutoHotKey script on PC to trigger keyboard shortcuts.
+---
 
-## 🔧 Components
-- Arduino UNO
-- 2x HC-SR04 Ultrasonic Sensors
-- Jumper Wires + Breadboard
-- USB Cable
+## 🛠️ Tech Stack
 
-## 📜 How it Works
-- Sensor 1 = detects right hand
-- Sensor 2 = detects left hand
-- Based on proximity logic, the Arduino sends serial commands for media control.
+| Component        | Description                              |
+|------------------|------------------------------------------|
+| **MCU**          | Arduino Nano (ATmega328p)                |
+| **Sensors**      | Ultrasonic HC-SR04 (x2)                  |
+| **OS**           | FreeRTOS via Arduino_FreeRTOS_Library    |
+| **Comm**         | Tasks + Queue from FreeRTOS              |
+| **Tools**        | Arduino IDE, Serial Monitor, Fritzing    |
 
-## 🛠 Tools Used
-- Arduino IDE
-- (Optional) Python + PyAutoGUI for controlling PC
+---
 
-## 🧩 Wiring Diagram
-> Upload `wiring_diagram.png` inside `docs/`
+## 🔧 Setup Instructions
 
-## 👨‍💻 Author
-- **A. Shashank**  
-  [GitHub](https://github.com/shashank7652907)
+1. Clone this repo:
 
-## 📜 License
-MIT License
+    ```bash
+    git clone https://github.com/shashank7652907/gesture-media-controller.git
+    cd gesture-media-controller
+    ```
+
+2. Install `Arduino_FreeRTOS_Library` via Library Manager.
+
+3. Connect the ultrasonic sensors as per schematic.
+
+4. Upload code using Arduino IDE.
+
+---
+
+## 📁 File Structure
+
+```
+gesture-media-controller/
+├── src/
+│   └── main.cpp
+├── include/
+│   └── FreeRTOSConfig.h
+├── images/
+│   └── schematic.png
+│   └── demo.gif (optional)
+├── README.md
+├── LICENSE
+├── .gitignore
+```
+
+---
+
+## ✍️ Author
+
+**Shashank Adepu**  
+Embedded Systems | ECE | Real-time Linux & RTOS enthusiast  
+
+---
+
+## ⚖️ License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+---
+
+## 💡 Future Improvements
+
+- Add support for multiple gestures (forward, backward)
+- Integrate BLE to control real music app
+- Low-power optimization using sleep mode. - Include Python CV so that hand movements are recoginized .
+
+

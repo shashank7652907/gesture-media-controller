@@ -1,0 +1,8 @@
+*.o
+*.bin
+*.elf
+*.hex
+*.log
+.DS_Store
+*.mp4
+
